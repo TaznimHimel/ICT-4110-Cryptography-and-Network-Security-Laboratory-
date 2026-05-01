@@ -5,9 +5,7 @@ def mod_inverse(e, phi):
         if b == 0:
             return a, 1, 0
         g, x1, y1 = extended_gcd(b, a % b)
-        x = y1
-        y = x1 - (a // b) * y1
-        return g, x, y
+        return g, y1, x1 - (a // b) * y1
 
     g, x, _ = extended_gcd(e, phi)
     if g != 1:
@@ -26,27 +24,52 @@ def rsa_keygen(p, q, e):
     return (e, n), (d, n)
 
 
-def rsa_encrypt(text, public_key):
+def rsa_encrypt_text(text, public_key):
     e, n = public_key
     return [pow(ord(ch), e, n) for ch in text]
 
 
-def rsa_decrypt(cipher, private_key):
+def rsa_decrypt_text(cipher, private_key):
     d, n = private_key
     return ''.join(chr(pow(c, d, n)) for c in cipher)
 
 
-# Main
-p, q, e = 61, 53, 17
+def rsa_encrypt_number(number, public_key):
+    e, n = public_key
+    if number >= n:
+        raise ValueError("Number must be less than n")
+    return pow(number, e, n)
 
+
+def rsa_decrypt_number(cipher, private_key):
+    d, n = private_key
+    return pow(cipher, d, n)
+
+
+# Main
+p, q, e = 17, 11, 7
 public_key, private_key = rsa_keygen(p, q, e)
 
 print("Public Key:", public_key)
 print("Private Key:", private_key)
 
-plaintext = input("Enter plaintext: ")
-cipher = rsa_encrypt(plaintext, public_key)
-print("Encrypted:", cipher)
+choice = input("Choose input type (text/number): ").lower()
 
-decrypted = rsa_decrypt(cipher, private_key)
-print("Decrypted:", decrypted)
+if choice == "text":
+    plaintext = input("Enter plaintext: ")
+    cipher = rsa_encrypt_text(plaintext, public_key)
+    print("Encrypted:", cipher)
+
+    decrypted = rsa_decrypt_text(cipher, private_key)
+    print("Decrypted:", decrypted)
+
+elif choice == "number":
+    number = int(input("Enter a number: "))
+    cipher = rsa_encrypt_number(number, public_key)
+    print("Encrypted:", cipher)
+
+    decrypted = rsa_decrypt_number(cipher, private_key)
+    print("Decrypted:", decrypted)
+
+else:
+    print("Invalid choice! Please select 'text' or 'number'.")
