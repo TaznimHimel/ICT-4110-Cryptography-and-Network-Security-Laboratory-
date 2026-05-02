@@ -27,11 +27,11 @@ print("Shared key:", shared)
 
 
 # Sample Input:
-# Enter prime number p: 23
+# Enter prime number p: 7
 # Enter primitive root g: 5
-# Enter private key of A: 6
-# Enter private key of B: 15
+# Enter private key of A: 3
+# Enter private key of B: 4
 # Shared key established successfully!
-# Public key of A: 8
-# Public key of B: 19
-# Shared key: 2
+# Public key of A: 6
+# Public key of B: 2
+# Shared key: 1
