@@ -110,3 +110,17 @@ print("\nEncrypted text:", cipher)
 
 decrypted = decrypt_playfair(cipher, matrix, pos)
 print("Decrypted text:", decrypted)
+
+
+# Enter keyword: MONARCHY
+# Enter plaintext: ATTACK
+
+# Key Matrix:
+# M O N A R
+# C H Y B D
+# E F G I K
+# L P Q S T
+# U V W X Z
+
+# Encrypted text: RSSRDE
+# Decrypted text: ATTACK
